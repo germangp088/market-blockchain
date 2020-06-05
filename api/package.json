@@ -11,18 +11,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "config": "^3.3.1",
+    "dotenv": "^8.2.0",
     "ethers": "^4.0.47",
+    "http-status-codes": "^1.4.0",
     "koa": "^2.12.0",
     "koa-bodyparser": "^4.3.0",
     "koa-json": "^2.0.2",
     "koa-logger": "^3.2.1",
     "koa-router": "^9.0.1",
-    "mongoose": "^5.9.17",
-    "node-config-ts": "^3.0.4"
+    "mongoose": "^5.9.17"
   },
   "devDependencies": {
-    "@types/config": "0.0.36",
     "@types/koa": "^2.11.3",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-json": "^2.0.18",

@@ -1,8 +1,8 @@
 import mongoose = require('mongoose');
-import * as config from 'config';
+import config from '../config';
 
 const connect = async () => {
-    const dbHost: any = config.get('mongo.host');
+    const dbHost: any = config.mongo.host;
     const uris: string = `${dbHost.URI}${dbHost.host}:${dbHost.port}/${dbHost.database}`;
 
     mongoose.connect(uris, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
