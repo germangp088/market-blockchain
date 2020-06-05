@@ -6,6 +6,15 @@ services:
         ports:
           - 8545:8545
 
+    mongo:
+      image: mongo:latest
+      restart: always
+      ports:
+        - 27017:27017
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: example
+
     market_blockchain_api:
         build:
             context: .
@@ -14,6 +23,7 @@ services:
             - "3000:3000"
         depends_on:
             - ganache-cli
+            - mongo
         volumes:
             - /usr/src/app/node_modules
             - ./api/src:/usr/src/app/src

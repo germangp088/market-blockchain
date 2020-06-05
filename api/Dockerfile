@@ -9,7 +9,6 @@ COPY ./api/package.json /usr/src/app/
 RUN npm install
 
 COPY ./api /usr/src/app
-RUN ls /usr/src/app
 
 EXPOSE 8545
 EXPOSE 3000
