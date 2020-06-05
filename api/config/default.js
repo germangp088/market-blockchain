@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     port: 3000,
     mongo: {
         host: {
@@ -6,10 +6,6 @@ export default {
             host: "mongo",
             database: "market-blockchain",
             port: 27017
-        },
-        credentials: {
-            username: process.env.MONGO_INITDB_ROOT_USERNAME,
-            password: process.env.MONGO_INITDB_ROOT_PASSWORD
         }
     }
 }
