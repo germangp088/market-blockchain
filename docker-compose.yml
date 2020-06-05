@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+    ganache-cli:
+        image: trufflesuite/ganache-cli:latest
+        ports:
+          - 8545:8545
+
+    market_blockchain_api:
+        build:
+            context: .
+            dockerfile: ./api/Dockerfile
+        ports:
+            - "3000:3000"
+        depends_on:
+            - ganache-cli
+        volumes:
+            - /usr/src/app/node_modules
+            - ./api/src:/usr/src/app/src
+
+    market_blockchain_client:
+        stdin_open: true
+        tty: true
+        build:
+            context: .
+            dockerfile: ./client/Dockerfile
+        ports:
+            - "8000:8000"
+        volumes:
+            - /usr/src/client/node_modules
+            - ./client/src:/usr/src/client/src
+            - ./client/public:/usr/src/app/public
