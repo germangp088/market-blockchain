@@ -1,10 +1,11 @@
   
 import * as Koa from "koa";
 import * as Router from "koa-router";
-
 import * as logger from "koa-logger";
 import * as json from "koa-json";
 import * as bodyParser from "koa-bodyparser";
+import * as config from 'config';
+import connect from './persistence'
 
 const app = new Koa();
 const router = new Router();
@@ -34,6 +35,8 @@ app.use(bodyParser());
 // Routes
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(3000, () => {
+const port: string | number = process.env.PORT || config.get('port');
+app.listen(port, async () => {
+  await connect();
   console.log("Koa started");
 });

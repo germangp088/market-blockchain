@@ -7,13 +7,12 @@ services:
           - 8545:8545
 
     mongo:
-      image: mongo:latest
-      restart: always
-      ports:
-        - 27017:27017
-      environment:
-        MONGO_INITDB_ROOT_USERNAME: root
-        MONGO_INITDB_ROOT_PASSWORD: example
+        image: mongo:latest
+        restart: always
+        ports:
+            - 27017:27017
+        env_file:
+            - ./api/.env
 
     market_blockchain_api:
         build:
@@ -21,6 +20,8 @@ services:
             dockerfile: ./api/Dockerfile
         ports:
             - "3000:3000"
+        env_file:
+            - ./api/.env
         depends_on:
             - ganache-cli
             - mongo
