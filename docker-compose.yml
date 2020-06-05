@@ -11,8 +11,6 @@ services:
         restart: always
         ports:
             - 27017:27017
-        env_file:
-            - ./api/.env
 
     market_blockchain_api:
         build:
@@ -30,8 +28,6 @@ services:
             - ./api/src:/usr/src/app/src
 
     market_blockchain_client:
-        stdin_open: true
-        tty: true
         build:
             context: .
             dockerfile: ./client/Dockerfile

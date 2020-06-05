@@ -3,7 +3,7 @@ import config from '../config';
 
 const connect = async () => {
     const dbHost: any = config.mongo.host;
-    const uris: string = `${dbHost.URI}${dbHost.host}:${dbHost.port}/${dbHost.database}`;
+    const uris: string = `${dbHost.URI}${dbHost.host}/${dbHost.database}`;
 
     mongoose.connect(uris, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
         if (err){

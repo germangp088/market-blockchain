@@ -1,15 +1,17 @@
 import * as mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
-    _id: new mongoose.Types.ObjectId(),
+const sUser = new mongoose.Schema({
+    userName: { type : String , unique : true, required : true, dropDups: true },
     name: {
       firstName: String,
-    lastName: String
+      lastName: String
     },
-    created: Date
+    created: { 
+        type: Date,
+        default: Date.now
+    }
 });
 
+const userSchema = mongoose.model('user', sUser);
 
-const sUser = mongoose.model('user', userSchema);
-
-export default sUser;
+export default userSchema;
