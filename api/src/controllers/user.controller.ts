@@ -15,7 +15,7 @@ router.post("/", async (ctx: Koa.Context, next) => {
     const userRequest: UserRequest = <UserRequest>ctx.request.body;
     const etherAccesor = new EtherAccesor();
     let user: any;
-    
+
     try {
       const wallet = etherAccesor.newWallet();
       userRequest.privateKey = wallet.privateKey;
@@ -29,9 +29,21 @@ router.post("/", async (ctx: Koa.Context, next) => {
     await next();
   });
   
-  router.get("/", async (ctx: Koa.Context, next) => {
-    ctx.body = { msg: "Hello world!" };
-  
+  router.get("/:id", async (ctx: Koa.Context, next) => {
+    let user: any;
+    
+    try {
+      user = await userSchema.findById(ctx.params.id);
+    } catch (error) {
+      console.error(error);
+      ctx.throw(HttpStatus.BAD_GATEWAY);
+    }
+
+    if(!user){
+      ctx.throw(HttpStatus.NOT_FOUND);
+    }
+
+    ctx.body = user;
     await next();
 });
 
