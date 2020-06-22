@@ -11,5 +11,8 @@ export default {
             database: "market-blockchain",
             port: process.env.MONGO_PORT || 27017
         }
+    },
+    ganache: {
+        host: `http://${process.env.GANACHE_HOST}:${process.env.GANACHE_PORT}`
     }
 }

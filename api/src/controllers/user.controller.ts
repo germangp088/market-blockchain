@@ -11,13 +11,13 @@ const routerOpts: Router.IRouterOptions = {
 
 const router: Router = new Router(routerOpts);
 
-router.post("/", async (ctx: Koa.Context, next) => {
+  router.post("/", async (ctx: Koa.Context, next) => {
     const userRequest: UserRequest = <UserRequest>ctx.request.body;
     const etherAccesor = new EtherAccesor();
     let user: any;
 
     try {
-      const wallet = etherAccesor.newWallet();
+      const wallet = await etherAccesor.newWallet();
       userRequest.privateKey = wallet.privateKey;
       user = await userSchema.create(userRequest);
     } catch (error) {
@@ -28,7 +28,24 @@ router.post("/", async (ctx: Koa.Context, next) => {
     ctx.body = user._id;
     await next();
   });
-  
+
+  router.post("/fund", async (ctx: Koa.Context, next) => {
+    const userId: string = ctx.request.body.userId;
+    let user: any;
+    try {
+      user = await userSchema.findById(userId);
+      console.log({user})
+      const etherAccesor = new EtherAccesor(user.privateKey);
+      await etherAccesor.fund();
+    } catch (error) {
+      console.error(error);
+      ctx.throw(HttpStatus.BAD_GATEWAY);
+    }
+
+    ctx.body = user._id;
+    await next();
+  });
+
   router.get("/:id", async (ctx: Koa.Context, next) => {
     let user: any;
     
@@ -45,6 +62,6 @@ router.post("/", async (ctx: Koa.Context, next) => {
 
     ctx.body = user;
     await next();
-});
+  });
 
 export default router;

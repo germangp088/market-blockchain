@@ -13,7 +13,7 @@ const router: Router = new Router(routerOpts);
 
 router.post("/", async (ctx: Koa.Context, next) => {
     const articuleRequest: ArticuleRequest = <ArticuleRequest>ctx.request.body;
-    const userId: number = ctx.request.body._user;
+    const userId: number = ctx.request.body.userId;
     let articule: any;
 
     try {

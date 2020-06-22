@@ -5,7 +5,8 @@ import * as bodyParser from "koa-bodyparser";
 import config from './config';
 import connect from './persistence';
 import userController from './controllers/user.controller';
-import articuleController from './controllers/articule.controller'
+import articuleController from './controllers/articule.controller';
+import transactionController from './controllers/transaction.controller';
 
 const app = new Koa();
 
@@ -15,6 +16,7 @@ app.use(logger());
 app.use(bodyParser());
 
 // Routes
+app.use(transactionController.routes()).use(transactionController.allowedMethods());
 app.use(articuleController.routes()).use(articuleController.allowedMethods());
 app.use(userController.routes()).use(userController.allowedMethods());
 
